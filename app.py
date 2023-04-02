@@ -3,7 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, flash
 from sqlalchemy.sql import text
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:YdR3AG88Qm@localhost:5432/postgres"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:salasana@localhost:5432/postgres"
 
 db = SQLAlchemy(app)
 
