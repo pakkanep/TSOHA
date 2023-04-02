@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Search results{% endblock %}
+{% block content %}
+<p>
+Näytetään hakutuloksia seuraavista kaupungeista:
+<ul>
+{% for loc in locations %}
+<li>{{ loc }}
+{% endfor %}
+</ul>
+{% for cabin in cabins %}
+{{ cabin }}
+<hr>
+{% endfor %}
+{% endblock %}

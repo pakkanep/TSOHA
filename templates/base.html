@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Vuokramökit{% endblock %}</title>
+    </head>
+    <body>
+        <hr>
+        <h1>Vuokramökit</h1>
+        <table>
+            <form action="/" method="GET"><input type="submit" value=" Takaisin kotisivulle "></form>
+            <form action="/login" method="GET"><input type="submit" value=" Siirry kirjautumaan "></form> 
+            <form action="/new_user" method="GET"><input type="submit" value=" Luo uusi käyttäjä "></form>
+            <form action="/haku" method="GET"><input type="submit" value=" Hae vapaita mökkejä "></form>
+            </table>
+        <hr>
+        <br>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
