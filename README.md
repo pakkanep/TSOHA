@@ -21,10 +21,14 @@ Arvostelut voisivat sisältää seuraavia tietoja:
     - yleinen arvosana 1-10.
     - muutamia lauseita omasta mielipiteestä
 
-### Sovelluksen käyttö/testaaminen:
-    
-    Sovelluksen olisi tarkoitus toimia niin että käyttäjä itse määrittelee manuaalisesti yhdistettävän tietokannan (nimet käyttäjät jne).
-    Itse määrittelin yhteyden näin: app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:salasana@localhost:5432/postgres"
-    Sovellus myös olettaa, että tietokannasta löytyisi seuraavanlainen taulu:
-    "CREATE TABLE cabins(id SERIAL PRIMARY KEY, name TEXT, location TEXT, year INT, availability INT);"
-    Muuten sovellus pitäisi pystyä käynnistämään ihan normaalisti kuten python ohjelmia yleensä.
+### Sovelluksen käyttö/testaaminen
+- Sovelluksen olisi tarkoitus toimia niin että käyttäjä itse määrittelee manuaalisesti yhdistettävän tietokannan (nimet käyttäjät jne).
+
+- Itse määrittelin yhteyden näin: app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:salasana@localhost:5432/postgres"
+
+- Sovellus myös olettaa, että tietokannasta löytyisi seuraavanlainen taulu:
+
+CREATE TABLE cabins(id SERIAL PRIMARY KEY, name TEXT, location TEXT, year INT, availability INT)
+
+- Sovellus on vielä todella vaiheessa eikä siinä juurikaan ole toimintoja.
+  
