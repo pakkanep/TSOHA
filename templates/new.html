@@ -1,11 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Home page{% endblock %}
 {% block content %}
-<form action="/send" method="POST">
-    Viesti: <br>
-    <textarea name="name" rows="3" cols="40"></textarea>
-    <br>
-    <input type="submit" value="Lähetä">
-    </form>
-
+<form action="/add" method="POST">
+Lisää Mökki: <br>
+<textarea name="name" rows="1" cols="40"></textarea>
+<br>
+<textarea name="location" rows="1" cols="40"></textarea>
+<br>
+<textarea name="size" rows="1" cols="40"></textarea>
+<br>
+<textarea name="price" rows="1" cols="40"></textarea>
+<br>
+<textarea name="owner" rows="1" cols="40"></textarea>
+<br>
+<input type="submit" value="Lähetä">
+</form>
 {% endblock %}

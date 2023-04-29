@@ -6,12 +6,20 @@
     <body>
         <hr>
         <h1>Vuokramökit</h1>
+        {% if session.user_id %}
         <table>
-            <form action="/" method="GET"><input type="submit" value=" Takaisin kotisivulle "></form>
+            <form action="/" method="GET"><input type="submit" value=" Kotisivu "></form>
+            <form action="/new" method="GET"><input type="submit" value=" Lisää vuokramökki "></form>
+            <form action="/logout" method="GET"><input type="submit" value=" Kirjaudu ulos "></form>
+            <form action="/reserve" method="GET"><input type="submit" value=" Varaa mökki "></form>
+        </table>
+        {% else %}
+        <table>
+            <form action="/" method="GET"><input type="submit" value=" Kotisivu "></form>
             <form action="/login" method="GET"><input type="submit" value=" Siirry kirjautumaan "></form> 
-            <form action="/new_user" method="GET"><input type="submit" value=" Luo uusi käyttäjä "></form>
-            <form action="/haku" method="GET"><input type="submit" value=" Hae vapaita mökkejä "></form>
-            </table>
+            <form action="/register" method="GET"><input type="submit" value=" Luo uusi käyttäjä "></form>
+        </table>
+        {% endif %}
         <hr>
         <br>
         {% block content %}

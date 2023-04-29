@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+Valitse mökki jonka haluat varata:
+<p>
+<form action="/reservecabin" method="POST">
+
+{% for cabin in cabins %}
+<hr>
+<input type="radio", name="cabin" value="{{ cabin[0] }}"> {{ cabin[0] }}
+<hr>
+{% endfor %}
+<p>
+
+<input type="submit" value="Lähetä">
+</form>
+{% endblock %}
+

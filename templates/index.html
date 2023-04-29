@@ -1,11 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Home page{% endblock %}
 {% block content %}
-Vapaita mökkejä: {{ count }}
+
+Vuokrattavia mökkejä: {{ count }}
 <hr>
 {% for cabin in cabins %}
-{{ cabin.name }}
+
+<i>Nimi:</i> {{ cabin[0] }}
+<p>
+<i>Paikka:</i> {{ cabin[1] }}
+<p>
+<i>Koko:</i> {{ cabin[2] }} /m^2
+<p>
+<i>Hinta:</i> {{ cabin[3] }} euroa/vrk
 <hr>
+
 {% endfor %}
 
 {% endblock %}
