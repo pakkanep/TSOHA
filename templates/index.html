@@ -5,13 +5,21 @@ Vuokrattavia mökkejä: {{ count }}
 <hr>
 {% for cabin in cabins %}
 
-<i>Nimi:</i> {{ cabin[0] }}
+<i>Nimi: </i> {{ cabin[0] }}
 <p>
-<i>Paikka:</i> {{ cabin[1] }}
+<i>Paikka: </i> {{ cabin[1] }}
 <p>
-<i>Koko:</i> {{ cabin[2] }} /m^2
+<i>Koko: </i> {{ cabin[2] }} /m^2
 <p>
-<i>Hinta:</i> {{ cabin[3] }} euroa/vrk
+<i>Hinta: </i> {{ cabin[3] }} euroa/vrk
+<p>
+<i>Rakennusvuosi: </i> {{ cabin[4] }}
+<p>
+    {% if cabin[5] == 0 %}
+        Vapaana
+    {% else %}
+        Varattu 
+    {% endif %}
 <hr>
 
 {% endfor %}

@@ -2,16 +2,16 @@
 {% block content %}
 <form action="/add" method="POST">
 Lisää Mökki: <br>
-<textarea name="name" rows="1" cols="40"></textarea>
+<p>
+Mökin nimi <textarea name="name" rows="1" cols="40"></textarea>
 <br>
-<textarea name="location" rows="1" cols="40"></textarea>
+Paikkakunta <textarea name="location" rows="1" cols="40"></textarea>
 <br>
-<textarea name="size" rows="1" cols="40"></textarea>
+Koko/m^2 <textarea name="size" rows="1" cols="40"></textarea>
 <br>
-<textarea name="price" rows="1" cols="40"></textarea>
+Hinta/vrk <textarea name="price" rows="1" cols="40"></textarea>
 <br>
-<textarea name="owner" rows="1" cols="40"></textarea>
-<br>
+Rakennusvuosi <textarea name="year" rows="1" cols="40"></textarea>
 <input type="submit" value="Lähetä">
 </form>
 {% endblock %}

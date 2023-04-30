@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/addreview" method="POST">
+Lisää arvostelu: <br>
+<p>
+Valitse mökki, jonka haluat arvostella:
+{% for cabin in cabins %}
+<hr>
+<input type="radio", name="cabin" value="{{ cabin[0] }}"> {{ cabin[0] }}
+<hr>
+{% endfor %}
+<p>
+Anna mökille arvosana:
+<p>
+    <input type="radio", name="grade" value="1">1
+    <input type="radio", name="grade" value="2">2
+    <input type="radio", name="grade" value="3">3
+    <input type="radio", name="grade" value="4">4
+    <input type="radio", name="grade" value="5">5
+
+<input type="submit" value="Lähetä">
+</form>
+{% endblock %}
