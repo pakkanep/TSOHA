@@ -1,27 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
 
-Vuokrattavia mökkejä: {{ count }}
+<h3>Vapaana olevat mökit: {{ count_free }}</h3>
 <hr>
-{% for cabin in cabins %}
+{% for cabin in cabins_free %}
 
-<i>Nimi: </i> {{ cabin[0] }}
+<i>Nimi: </i> {{ cabin[1] }}
 <p>
-<i>Paikka: </i> {{ cabin[1] }}
+<i>Sijainti: </i> {{ cabin[2] }}
 <p>
-<i>Koko: </i> {{ cabin[2] }} /m^2
+<i>Koko: </i> {{ cabin[3] }} /m^2
 <p>
-<i>Hinta: </i> {{ cabin[3] }} euroa/vrk
+<i>Hinta: </i> {{ cabin[4] }} euroa/vrk
 <p>
-<i>Rakennusvuosi: </i> {{ cabin[4] }}
+<i>Rakennusvuosi: </i> {{ cabin[5] }}
 <p>
-    {% if cabin[5] == 0 %}
-        Vapaana
-    {% else %}
-        Varattu 
-    {% endif %}
+Vapaana
 <hr>
-
 {% endfor %}
+<p>
 
+<h3>Varattuna olevat mökit: {{ count_reserved }}</h3>
+<p>
+{% for cabin in cabins_reserved %}
+<i>Nimi: </i> {{ cabin[1] }}
+<p>
+<i>Sijainti: </i> {{ cabin[2] }}
+<p>
+<i>Koko: </i> {{ cabin[3] }} /m^2
+<p>
+<i>Hinta: </i> {{ cabin[4] }} euroa/vrk
+<p>
+<i>Rakennusvuosi: </i> {{ cabin[5] }}
+<p>
+Vapautuu: {{ cabin[8].strftime("%d-%m-%Y") }}
+<hr>
+{% endfor %}
 {% endblock %}

@@ -1,17 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
+Vapaita mökkejä tällä hetkellä: {{ count }}
 Valitse mökki jonka haluat varata:
 <p>
 <form action="/reservecabin" method="POST">
 
 {% for cabin in cabins %}
 <hr>
-<input type="radio", name="cabin" value="{{ cabin[0] }}"> {{ cabin[0] }}
+<input type="radio", name="cabin" value="{{cabin[1]}},{{cabin[0]}}"> {{ cabin[1] }}
 <hr>
 {% endfor %}
 <p>
-
-<input type="submit" value="Lähetä">
+<p>Varauksen kesto (päivää):<br>
+    <select name="length">
+    <option value="1">1
+    <option value="2">2
+    <option value="3">3
+    <option value="4">4
+    <option value="5">5
+    <option value="6">6
+    <option value="7">7
+    <option value="8">8
+    <option value="9">9
+    </select></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="submit" value="Varaa">
 </form>
 {% endblock %}
 

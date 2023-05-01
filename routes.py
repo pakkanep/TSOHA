@@ -1,26 +1,53 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 import cabins, users
+
 
 @app.route("/")
 def index():
-    cabinlist = cabins.get_list()
-    return render_template("index.html", count=len(cabinlist), cabins=cabinlist)
+    if not cabins.clear_old_reservations():
+        return render_template("error.html", message="vanhojen varausten poistamisessa ongelma")
+    cabinlist = cabins.get_list_free()
+    reservedlist = cabins.get_list_reserved()
+    return render_template(
+        "index.html",
+        count_free=len(cabinlist),
+        cabins_free=cabinlist,
+        count_reserved=len(reservedlist),
+        cabins_reserved=reservedlist
+        )
 
 @app.route("/new")
 def new():
     return render_template("new.html")
 
+@app.route("/readreviews")
+def showreviews():
+    reviewlist = cabins.getreviews()
+    if reviewlist == False:
+        return render_template("error.html", message="Arvosteluja ei vielä ole")
+    else:
+        return render_template("showreviews.html", amount=len(reviewlist), reviews=reviewlist)
+
+
 @app.route("/reserve", methods=["POST", "GET"])
 def reserve():
-    cabinlist = cabins.get_list()
-    return render_template("reserve.html", cabins=cabinlist)
+    cabinlist = cabins.get_list_free()
+    return render_template("reserve.html", count=len(cabinlist), cabins=cabinlist)
 
 
-@app.route("/reservecabin", methods=["POST", "GET"])
+@app.route("/reservecabin", methods=["POST"])
 def reserve_cabin():
-    name = request.form["cabin"]
-    if cabins.reserve_cabin(name):
+    users.check_csrf()
+    try:
+        info = request.form["cabin"]
+    except:
+        return render_template("error.html", message="Mökin varaus epäonnistui")
+    result = info.split(",")
+    name = str(result[0])
+    cabin_id = int(result[1])
+    length = int(request.form["length"])
+    if cabins.reserve_cabin(name) and cabins.add_reservation(cabin_id, length):
         return redirect("/")
     else:
         return render_template("error.html", message="Mökin vuokraaminen ei onnistunut")    
@@ -28,16 +55,27 @@ def reserve_cabin():
 
 @app.route("/review", methods=["POST", "GET"])
 def review():
-    cabinlist = cabins.get_list()
+    cabinlist = cabins.get_list_all()
     return render_template("review.html", count=len(cabinlist), cabins=cabinlist)
 
-@app.route("/addreview", methods=["GET"])
-def add_review():
-    pass
 
+@app.route("/addreview", methods=["POST", "GET"])
+def add_review():
+    users.check_csrf()
+    try:
+        grade = request.form["grade"]
+        cabin_id = request.form["cabin_id"]
+        comment = request.form["comment"]
+    except:
+        return render_template("error.html", message="Arvostelun lisääminen ei onnistunut")
+    if cabins.add_review(grade, cabin_id, comment):
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Arvostelun lisääminen ei onnistunut")
 
 @app.route("/add", methods=["POST", "GET"])
 def add_cabin():
+    users.check_csrf()
     name = request.form["name"]
     location = request.form["location"]
     size = request.form["size"]

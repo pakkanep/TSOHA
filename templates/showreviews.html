@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+Arvosteluja yhteensä: {{ amount }}
+<hr>
+<p>
+{% for review in reviews %}
+Mökki: {{ review[3] }}
+<p>
+Arvosana: {{ review[1] }}/5
+<p>
+{{ review[0] }}
+<p>
+Käyttäjältä: {{ review[2] }}
+<p>
+<hr>
+{% endfor %}
+{% endblock %}

@@ -26,7 +26,7 @@ CREATE TABLE reviews(
 CREATE TABLE reservations(
 	id SERIAL PRIMARY KEY,
 	cabin_id INTEGER REFERENCES cabins,
-	owner_id INTEGER REFERENCES users,
-	reservation TIMESTAMP,
-	length INTEGER
+	user_id INTEGER REFERENCES users,
+	start_date TIMESTAMP,
+	end_date TIMESTAMP
 );

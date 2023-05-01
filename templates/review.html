@@ -6,7 +6,7 @@ Lisää arvostelu: <br>
 Valitse mökki, jonka haluat arvostella:
 {% for cabin in cabins %}
 <hr>
-<input type="radio", name="cabin" value="{{ cabin[0] }}"> {{ cabin[0] }}
+<input type="radio", name="cabin_id" value="{{ cabin[0] }}"> {{ cabin[1] }}
 <hr>
 {% endfor %}
 <p>
@@ -17,7 +17,12 @@ Anna mökille arvosana:
     <input type="radio", name="grade" value="3">3
     <input type="radio", name="grade" value="4">4
     <input type="radio", name="grade" value="5">5
-
+<p>
+Kuvaile vielä halutessasi mökkiä muutamalla sanalla:
+<p>
+<textarea name="comment" rows="5" cols="40"></textarea>
+<p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Lähetä">
 </form>
 {% endblock %}

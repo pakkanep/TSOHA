@@ -1,11 +1,104 @@
 from db import db
 from sqlalchemy.sql import text
 import users
+from datetime import datetime, timedelta
 
-def get_list():
-    sql = text("SELECT name, location, size, price, year, availability FROM cabins")
-    result = db.session.execute(sql)
-    return result.fetchall()
+def clear_old_reservations():
+    try:
+        sql = text("SELECT cabin_id, start_date, end_date FROM reservations")
+        result = db.session.execute(sql)
+        dates = result.fetchall()
+        for date in dates:
+            if date[2] < datetime.now():
+                release_cabin(date[0])
+        return True
+    except:
+        return False
+    
+def release_cabin(cabin_id):
+    try:
+        sql = text("""
+            UPDATE cabins set availability = 0 WHERE id = :cabin_id;
+        """)
+        db.session.execute(sql, {"cabin_id":cabin_id})
+        db.session.commit()
+
+        sql = text("DELETE FROM reservations WHERE cabin_id = :cabin_id")
+        db.session.execute(sql, {"cabin_id":cabin_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+        
+
+def get_list_all():
+    try:
+        sql = text("""
+                SELECT id, name, location, size, price, year, availability
+                FROM cabins
+            """)
+        result = db.session.execute(sql)
+        return result.fetchall()
+    except:
+        return False
+
+def get_list_free():
+    try:
+        sql = text("""
+                SELECT id, name, location, size, price, year, availability
+                FROM cabins
+                WHERE availability=0
+            """)
+        result = db.session.execute(sql)
+        return result.fetchall()
+    except:
+        return False
+
+def get_list_reserved():
+    try:
+        sql = text("""
+                SELECT C.id, C.name, C.location, C.size, C.price, C.year, C.availability, R.start_date, r.end_date 
+                FROM cabins C, reservations R
+                WHERE C.id = R.cabin_id AND C.availability=1
+            """)
+        result = db.session.execute(sql)
+        return result.fetchall()
+    except:
+        return False
+
+def getreviews():
+    try:
+        sql = text("""
+                SELECT R.comment, R.grade, U.username, C.name
+                FROM reviews R, users U, cabins C
+                WHERE R.user_id = U.id AND R.cabin_id = C.id
+            """)
+        result = db.session.execute(sql)
+        return result.fetchall()
+    except:
+        return False
+    
+
+
+def add_review(grade, cabin_id, comment):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    try:
+        sql = text("""
+            INSERT INTO reviews (user_id, cabin_id, comment, grade)
+            VALUES (:user_id, :cabin_id, :comment, :grade)
+        """)
+        db.session.execute(sql,{
+            "user_id":user_id,
+            "cabin_id":cabin_id,
+            "comment":comment,
+            "grade":grade
+        })
+        db.session.commit()
+        return True
+    except:
+        return False
 
 def add_cabin(name, location, size, price, year):
     user_id = users.user_id()
@@ -46,7 +139,6 @@ def verify_owner(name):
     else:
         return False
 
-
 def reserve_cabin(name):
     user_id = users.user_id()
     if user_id == 0:
@@ -61,3 +153,25 @@ def reserve_cabin(name):
     except:
         return False
     
+def add_reservation(cabin_id, length):
+    user_id = users.user_id()
+    today = datetime.now()
+    end_date = today + timedelta(days=length)
+    if user_id == 0:
+        return False
+    try:
+        sql = text("""
+            INSERT INTO reservations (cabin_id, user_id, start_date, end_date)
+            values(:cabin_id, :user_id, :today, :end_date) 
+        """)
+        db.session.execute(sql, {
+            "cabin_id":cabin_id,
+            "user_id":user_id,
+            "today":today,
+            "end_date":end_date
+            })
+
+        db.session.commit()
+        return True
+    except:
+        return False
