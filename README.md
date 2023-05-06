@@ -4,22 +4,27 @@
 ### Sovelluksen toiminnot:
 
 1. Selaa vuokramökkejä
-    - Katso koko, sijainti, hinta/per vrk. Kuvia mökistä(?). Mökit näkyvät vain jos ne ovat vuokrattavissa.
+    - Katso koko, sijainti, hinta/per vrk ja rakennusvuosi.
+    - Varatut ja vapaat mökit näkyvät erikseen.
   
 2. Varaa vapaa mökki.
-
-3. Luo tarkennettu haku. Tarkennettuja tietoja voisi olla vaikka:
-    -  neliömäärä min/max.
-    -  hinta min/max.
-    -  sijainti.
-    -  näytä vain vapaana olevat mökit.
+    - Vaatii oman käyttäjän
   
-4. Luo käyttäjä, jonka kanssa voit varata mökin.
+3. Luo käyttäjä.
+    - Omalla käyttäjällä voit vuokrata mökin.
+    - Voit laittaa mökkisi vuokralle.
+    - Voit arvostella mökin.
 
-5. Mökeille voi antaa arvosteluja joita muut vuokraajat voivat katsella.
-Arvostelut voisivat sisältää seuraavia tietoja:
-    - yleinen arvosana 1-10.
+4. Mökeille voi antaa arvosteluja joita muut vuokraajat voivat katsella.
+    Arvostelut sisältää seuraavia tietoja:
+    - yleinen arvosana 1-5.
     - muutamia lauseita omasta mielipiteestä
+
+5. Sovelluksessa on myös toimintoja ilman omaa käyttäjää.
+    - Mökkien ja arvosteluiden selaaminen.
+
+### Fly.io
+   - Sovellus ei ole testattavissa Fly.iossa
 
 
 ### Sovelluksen käyttö/testaaminen
