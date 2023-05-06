@@ -3,6 +3,9 @@
 <form action="/addreview" method="POST">
 Lisää arvostelu: <br>
 <p>
+{% if count == 0 %}
+Ei arvosteltavia mökkejä järjestelmässä!
+{% else %}
 Valitse mökki, jonka haluat arvostella:
 {% for cabin in cabins %}
 <hr>
@@ -25,4 +28,5 @@ Kuvaile vielä halutessasi mökkiä muutamalla sanalla:
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Lähetä">
 </form>
+{% endif %}
 {% endblock %}

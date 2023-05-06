@@ -1,12 +1,10 @@
 from app import app
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect
 import cabins, users
 
 
 @app.route("/")
 def index():
-    if not cabins.clear_old_reservations():
-        return render_template("error.html", message="vanhojen varausten poistamisessa ongelma")
     cabinlist = cabins.get_list_free()
     reservedlist = cabins.get_list_reserved()
     return render_template(
@@ -27,7 +25,11 @@ def showreviews():
     if reviewlist == False:
         return render_template("error.html", message="Arvosteluja ei vielä ole")
     else:
-        return render_template("showreviews.html", amount=len(reviewlist), reviews=reviewlist)
+        return render_template(
+            "showreviews.html",
+            amount=len(reviewlist),
+            reviews=reviewlist
+        )
 
 
 @app.route("/reserve", methods=["POST", "GET"])
@@ -41,7 +43,7 @@ def reserve_cabin():
     users.check_csrf()
     try:
         info = request.form["cabin"]
-    except:
+    except BaseException:
         return render_template("error.html", message="Mökin varaus epäonnistui")
     result = info.split(",")
     name = str(result[0])
@@ -66,8 +68,15 @@ def add_review():
         grade = request.form["grade"]
         cabin_id = request.form["cabin_id"]
         comment = request.form["comment"]
-    except:
+    except BaseException:
         return render_template("error.html", message="Arvostelun lisääminen ei onnistunut")
+
+    if len(comment) > 200:
+        return render_template(
+            "error.html",
+            message="Kommentti voi olla maksimissaan 200 merkkiä pitkä"
+        )
+
     if cabins.add_review(grade, cabin_id, comment):
         return redirect("/")
     else:
@@ -81,7 +90,35 @@ def add_cabin():
     size = request.form["size"]
     price = request.form["price"]
     year = request.form["year"]
-    
+    if len(name) < 3 or len(name) > 25:
+        return render_template(
+            "error.html",
+            message="Mökin nimen tulee olla 4-25 merkin pituinen"
+        )
+
+    if len(location) < 4 or len(location) > 20:
+        return render_template(
+            "error.html",
+            message="Paikkakunnan nimen tulee olla 4-18 merkin pituinen"
+        )
+
+    try:
+        size = int(size)
+        price = int(price)
+        year = int(year)
+
+    except ValueError:
+        return render_template(
+            "error.html",
+            message="Käytäthän oikeita arvoja koossa, hinnassa tai vuodessa"
+        )
+
+    if size > 10**9 or price > 10**9 or year < 1500 or year > 2024 :
+        return render_template(
+            "error.html",
+            message="Koko, vuosi tai hinta on epärealistinen"
+        )
+
     if cabins.add_cabin(name, location, size, price, year):
         return redirect("/")
     else:
@@ -125,7 +162,7 @@ def register():
         password2 = request.form["password2"]
         if password1 != password2:
             return render_template("error.html", message="Salasanat eivät täsmää")
-        
+
         if len(password1) < 4 or len(password1) > 20:
             return render_template(
                 "error.html",

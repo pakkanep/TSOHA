@@ -1,3 +1,9 @@
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	username TEXT UNIQUE,
+	password TEXT
+);
+
 CREATE TABLE cabins(
 	id SERIAL PRIMARY KEY,
 	name TEXT,
@@ -9,11 +15,6 @@ CREATE TABLE cabins(
 	owner_id INTEGER REFERENCES users
 );
 
-CREATE TABLE users(
-	id SERIAL PRIMARY KEY,
-	username TEXT UNIQUE,
-	password TEXT
-);
 
 CREATE TABLE reviews(
 	id SERIAL PRIMARY KEY,
