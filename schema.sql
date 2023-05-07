@@ -36,4 +36,4 @@ CREATE TABLE localities(
 	id SERIAL PRIMARY KEY,
 	name text,
 	amount INTEGER
-)
+);
