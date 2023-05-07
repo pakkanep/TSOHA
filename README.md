@@ -21,8 +21,10 @@
     - muutamia lauseita omasta mielipiteestä
 
 5. Sovelluksessa on myös toimintoja ilman omaa käyttäjää.
-    - Mökkien ja arvosteluiden selaaminen.
-
+    - Mökkien, paikkakuntien ja arvosteluiden selaaminen.
+    
+6. Selaa paikkakuntia, jossa vuokramökit sijaitsee.
+    - paikkakunta ja mökkien lukumäärä sillä paikkakunnalla.
 ### Fly.io
    - Sovellus ei ole testattavissa Fly.iossa
 
