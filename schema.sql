@@ -31,3 +31,9 @@ CREATE TABLE reservations(
 	start_date TIMESTAMP,
 	end_date TIMESTAMP
 );
+
+CREATE TABLE localities(
+	id SERIAL PRIMARY KEY,
+	name text,
+	amount INTEGER
+)
