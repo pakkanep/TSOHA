@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="content">
 Vapaita mökkejä tällä hetkellä: {{ count }}
 <p>
 Valitse mökki jonka haluat varata:
@@ -27,5 +28,6 @@ Valitse mökki jonka haluat varata:
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Varaa">
 </form>
+</div>
 {% endblock %}
 

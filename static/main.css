@@ -2,22 +2,31 @@ body {
     margin: auto;
     max-width: 45em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(205, 217, 255);
+    background: rgb(63, 111, 243);
 }
 
-h1 {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(205, 217, 255);
-    
+.header {
+    background: white;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
+    border-radius: .5em;
+    margin-top: .5em;
 }
 
 form {
-    background: rgb(205, 217, 255);
+    background: rgb(255, 255, 255);
     border-radius: .5em;
     padding: .5em;
+    margin-top: .5em;
 }
 
 h4{
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(255, 205, 219);
+    background: (63, 111, 243);
+}
+.content {
+    background: white;
+    padding: 1.5em 2em;
+    border-radius: .5em
 }

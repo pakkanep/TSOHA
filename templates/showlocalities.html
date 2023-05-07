@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="content">
 <h3>Paikkakuntia Yhteensä: {{count}}</h3>
+
 <hr>
 <p>
 {% for locality in localities %}
@@ -9,5 +11,7 @@
 Mökkejä: {{locality[1]}}
 <p>
 <hr>
+
 {% endfor %}
+</div>
 {% endblock %}

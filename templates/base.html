@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <body>
         <hr>
-        <h1>Vuokramökit</h1>
+        <div class="header">
+            <h1>Vuokramökit</h1>
+          </div>
         {% if session.user_id %}
+        <p>
         <table>
             <form action="/" method="GET"><input type="submit" value=" Kotisivu "></form>
             <form action="/new" method="GET"><input type="submit" value=" Lisää mökki "></form>

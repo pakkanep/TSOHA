@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class="content">
 <h3>Vapaana olevat mökit: {{ count_free }}</h3>
 <hr>
 {% for cabin in cabins_free %}
@@ -36,4 +36,5 @@ Vapaana
 Vapautuu: {{ cabin[8].strftime("%d-%m-%Y") }}
 <hr>
 {% endfor %}
+</div>
 {% endblock %}
