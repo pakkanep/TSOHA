@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <form action="/addreview" method="POST">
-Lisää arvostelu: <br>
+<h3>Lisää arvostelu:</h3>
 <p>
 {% if count == 0 %}
-Ei arvosteltavia mökkejä järjestelmässä!
+<h3>Ei arvosteltavia mökkejä järjestelmässä!</h3>
 {% else %}
-Valitse mökki, jonka haluat arvostella:
+<h3>Valitse mökki, jonka haluat arvostella:</h3>
 {% for cabin in cabins %}
 <hr>
 <input type="radio", name="cabin_id" value="{{ cabin[0] }}"> {{ cabin[1] }}
