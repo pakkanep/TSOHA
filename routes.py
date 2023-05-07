@@ -12,6 +12,7 @@ def show_localities():
         count=len(localities)
     )
 
+
 @app.route("/")
 def index():
     cabinlist = cabins.get_list_free()
@@ -24,9 +25,11 @@ def index():
         cabins_reserved=reservedlist
     )
 
+
 @app.route("/new")
 def new():
     return render_template("new.html")
+
 
 @app.route("/readreviews")
 def show_reviews():
@@ -91,6 +94,7 @@ def add_review():
     else:
         return render_template("error.html", message="Arvostelun lisääminen ei onnistunut")
 
+
 @app.route("/add", methods=["POST", "GET"])
 def add_cabin():
     users.check_csrf()
@@ -134,6 +138,7 @@ def add_cabin():
     else:
         return render_template("error.html", message="Mökin lisääminen ei onnistunut")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -150,10 +155,12 @@ def login():
         else:
             return render_template("error.html", message="Väärä tunnus tai salasana")
 
+
 @app.route("/logout")
 def logout():
     users.logout()
     return redirect("/")
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

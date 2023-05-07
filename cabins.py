@@ -68,7 +68,7 @@ def getreviews():
     """)
     result = db.session.execute(sql)
     return result.fetchall()
-    
+
 
 def add_review(grade, cabin_id, comment):
     user_id = users.user_id()
@@ -113,6 +113,7 @@ def get_one_locality(locality):
     sql = text("SELECT amount FROM localities WHERE locality=:locality")
     result = db.session.execute(sql, {"locality":locality})
     return result.fetchall()
+
 
 def add_cabin(name, location, size, price, year):
     user_id = users.user_id()
@@ -167,4 +168,3 @@ def add_reservation(cabin_id, length):
 
     db.session.commit()
     return True
-
