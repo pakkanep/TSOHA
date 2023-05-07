@@ -29,11 +29,11 @@
    - Sovellus ei ole testattavissa Fly.iossa
 
 
-### Sovelluksen käyttö/testaaminen
+### Sovelluksen käyttö/testaaminen (komentorivillä)
 
 Aloita kloonaamalla tämä repositorio tietokoneellesi komennolla:
 ```bash
-$ git clone https://github.com/pakkanep/TSOHA.git
+git clone https://github.com/pakkanep/TSOHA.git
 ```
 
 
@@ -60,24 +60,24 @@ $ python3
 
 Seuraavaksi voit asentaa virtuaaliympäristön komennolla:
 ```bash
-$ python3 -m venv venv
+python3 -m venv venv
 ```
 
 Virtuaaliympäristön asennuksen jälkeen aktivoi se komennolla:
 ```bash
- $ source venv/bin/activate
+ source venv/bin/activate
 ```
 
 Virtuaaliympäriston ollessa aktiivinen, asenna riippuvuudet komennolla:
 ```bash
-(venv) $ pip install -r ./requirements.txt
+pip install -r ./requirements.txt
 ```
 
 Määritä vielä tietokannan taulut komennolla
 ```bash
-(venv) $ psql < schema.sql
+psql < schema.sql
 ```
 Nyt sovelluksen käynnistäminen pitäisi onnnistua komennolla
 ```bash
-(venv) $ flask run
+flask run
 ```
