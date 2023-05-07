@@ -3,6 +3,13 @@ from sqlalchemy.sql import text
 import users
 from datetime import datetime, timedelta
 
+
+def show_localities():
+    sql = text("SELECT locality, amount FROM localities")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+
 def clear_old_reservations():
     sql = text("SELECT cabin_id, start_date, end_date FROM reservations")
     result = db.session.execute(sql)
@@ -14,12 +21,12 @@ def clear_old_reservations():
 
 def release_cabin(cabin_id):
     sql = text("""
-        UPDATE cabins set availability = 0 WHERE id = :cabin_id;
+        UPDATE cabins set availability=0 WHERE id=:cabin_id;
     """)
     db.session.execute(sql, {"cabin_id":cabin_id})
     db.session.commit()
 
-    sql = text("DELETE FROM reservations WHERE cabin_id = :cabin_id")
+    sql = text("DELETE FROM reservations WHERE cabin_id=:cabin_id")
     db.session.execute(sql, {"cabin_id":cabin_id})
     db.session.commit()
 
@@ -47,7 +54,7 @@ def get_list_reserved():
         SELECT C.id, C.name, C.location, C.size, C.price,
         C.year, C.availability, R.start_date, r.end_date 
         FROM cabins C, reservations R
-        WHERE C.id = R.cabin_id AND C.availability=1
+        WHERE C.id=R.cabin_id AND C.availability=1
     """)
     result = db.session.execute(sql)
     return result.fetchall()
@@ -57,7 +64,7 @@ def getreviews():
     sql = text("""
         SELECT R.comment, R.grade, U.username, C.name
         FROM reviews R, users U, cabins C
-        WHERE R.user_id = U.id AND R.cabin_id = C.id
+        WHERE R.user_id=U.id AND R.cabin_id=C.id
     """)
     result = db.session.execute(sql)
     return result.fetchall()
@@ -81,6 +88,32 @@ def add_review(grade, cabin_id, comment):
     return True
 
 
+def add_locality(locality):
+    amount = get_one_locality(locality)
+    if amount == []:
+        sql = text("""
+            INSERT INTO localities (locality, amount) VALUES (:locality, :amount)
+        """)
+        db.session.execute(sql, {"locality":locality, "amount":1})
+        db.session.commit()
+    else:
+        add_locality_fail(locality, int(amount[0][0]))
+
+
+def add_locality_fail(locality, amount):
+    amount += 1
+    sql = text("""
+        UPDATE localities set amount = :amount WHERE locality = :locality
+    """)
+    db.session.execute(sql, {"amount":amount, "locality":locality})
+    db.session.commit()
+
+
+def get_one_locality(locality):
+    sql = text("SELECT amount FROM localities WHERE locality=:locality")
+    result = db.session.execute(sql, {"locality":locality})
+    return result.fetchall()
+
 def add_cabin(name, location, size, price, year):
     user_id = users.user_id()
     if user_id == 0:
@@ -102,30 +135,12 @@ def add_cabin(name, location, size, price, year):
     return True
 
 
-def remove_cabin(name):
-    pass
-
-
-def verify_owner(name):
-    user_id = users.user_id()
-    try:
-        sql = text("SELECT owner_id FROM cabins WHERE name = :name")
-        result = db.session.execute(sql, {"name":name})
-        owner = result.fetchall()
-    except:
-        return False
-    if owner == user_id:
-        return True
-    else:
-        return False
-
-
 def reserve_cabin(name):
     user_id = users.user_id()
     if user_id == 0:
         return False
     sql = text("""
-        UPDATE cabins set availability = 1 WHERE name = :name;
+        UPDATE cabins set availability=1 WHERE name=:name;
     """)
     db.session.execute(sql, {"name":name})
     db.session.commit()

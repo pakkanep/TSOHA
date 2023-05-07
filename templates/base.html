@@ -9,16 +9,18 @@
         {% if session.user_id %}
         <table>
             <form action="/" method="GET"><input type="submit" value=" Kotisivu "></form>
-            <form action="/new" method="GET"><input type="submit" value=" Lisää vuokramökki "></form>
+            <form action="/new" method="GET"><input type="submit" value=" Lisää mökki "></form>
             <form action="/reserve" method="GET"><input type="submit" value=" Varaa mökki "></form>
             <form action="/review" method="GET"><input type="submit" value=" Arvostele mökki "></form>
-            <form action="/readreviews" method="GET"><input type="submit" value=" Katsele arvosteluja "></form>
+            <form action="/readreviews" method="GET"><input type="submit" value=" Arvostelut "></form>
+            <form action="/showlocalities" method="GET"><input type="submit" value=" Paikkakunnat "></form>
             <form action="/logout" method="GET"><input type="submit" value=" Kirjaudu ulos "></form>
         </table>
         {% else %}
         <table>
             <form action="/" method="GET"><input type="submit" value=" Kotisivu "></form>
-            <form action="/readreviews" method="GET"><input type="submit" value=" Katsele arvosteluja "></form>
+            <form action="/readreviews" method="GET"><input type="submit" value=" Arvostelut "></form>
+            <form action="/showlocalities" method="GET"><input type="submit" value=" Paikkakunnat "></form>
             <form action="/login" method="GET"><input type="submit" value=" Kirjaudu sisään "></form> 
             <form action="/register" method="GET"><input type="submit" value=" Luo uusi käyttäjä "></form>
         </table>

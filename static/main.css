@@ -2,8 +2,22 @@ body {
     margin: auto;
     max-width: 45em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(230, 229, 244);
+    background: rgb(205, 217, 255);
 }
 
+h1 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: rgb(205, 217, 255);
+    
+}
 
+form {
+    background: rgb(205, 217, 255);
+    border-radius: .5em;
+    padding: .5em;
+}
 
+h4{
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: rgb(255, 205, 219);
+}

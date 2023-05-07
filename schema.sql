@@ -34,6 +34,6 @@ CREATE TABLE reservations(
 
 CREATE TABLE localities(
 	id SERIAL PRIMARY KEY,
-	name text UNIQUE,
+	locality TEXT,
 	amount INTEGER
 );

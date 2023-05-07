@@ -3,6 +3,15 @@ from flask import render_template, request, redirect
 import cabins, users
 
 
+@app.route("/showlocalities")
+def show_localities():
+    localities = cabins.show_localities()
+    return render_template(
+        "showlocalities.html",
+        localities=localities,
+        count=len(localities)
+    )
+
 @app.route("/")
 def index():
     cabinlist = cabins.get_list_free()
@@ -13,14 +22,14 @@ def index():
         cabins_free=cabinlist,
         count_reserved=len(reservedlist),
         cabins_reserved=reservedlist
-        )
+    )
 
 @app.route("/new")
 def new():
     return render_template("new.html")
 
 @app.route("/readreviews")
-def showreviews():
+def show_reviews():
     reviewlist = cabins.getreviews()
     if reviewlist == False:
         return render_template("error.html", message="Arvosteluja ei vielä ole")
@@ -120,6 +129,7 @@ def add_cabin():
         )
 
     if cabins.add_cabin(name, location, size, price, year):
+        cabins.add_locality(location)
         return redirect("/")
     else:
         return render_template("error.html", message="Mökin lisääminen ei onnistunut")
